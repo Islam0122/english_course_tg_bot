@@ -5,7 +5,7 @@ from aiogram.types import InlineKeyboardButton, Message, CallbackQuery
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from keyboard.inline import start_keybord_inline, return_keybord_inline, tops_5_website_keybord_inline
+from keyboard.inline import start_keybord_inline, return_keybord_inline, tops_5_website_keybord_inline,tops_5_video_keybord_inline
 
 start_functions_private_router = Router()
 # start_functions_private_router.message.filter(ChatTypeFilter(['private']))
@@ -69,6 +69,18 @@ async def tops_10_website_handler(callback_query: CallbackQuery):
         5 сайта для изучения английского
         """,
         reply_markup = tops_5_website_keybord_inline(),
+        parse_mode=ParseMode.MARKDOWN
+
+    )
+
+
+@start_functions_private_router.callback_query(F.data  == "tops_5_video")
+async def tops_5_video_handler(callback_query: CallbackQuery):
+    await callback_query.message.edit_caption(
+        caption= """
+        5 видео для изучения английского
+        """,
+        reply_markup = tops_5_video_keybord_inline(),
         parse_mode=ParseMode.MARKDOWN
 
     )
